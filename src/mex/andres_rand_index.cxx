@@ -20,7 +20,7 @@ matlabRandIndexHelper(
     const size_t n = mxGetNumberOfElements(array0);
     const T* p0 = static_cast<const T*>(mxGetData(array0));
     const T* p1 = static_cast<const T*>(mxGetData(array1));
-    return andres::randIndex(p0, p0 + n, p1, true); // ignores default label 0
+    return andres::RandError<>(p0, p0 + n, p1, true).index(); // ignores default label 0
 }
 
 void mexFunction(
