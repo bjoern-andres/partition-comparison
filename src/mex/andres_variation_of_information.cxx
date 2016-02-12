@@ -20,7 +20,7 @@ matlabVIHelper(
     const size_t n = mxGetNumberOfElements(array0);
     const T* p0 = static_cast<const T*>(mxGetData(array0));
     const T* p1 = static_cast<const T*>(mxGetData(array1));
-    return andres::variationOfInformation(p0, p0 + n, p1, true); // ignores default label 0
+    return andres::VariationOfInformation<>(p0, p0 + n, p1, true).value(); // ignores default label 0
 }
 
 void mexFunction(
