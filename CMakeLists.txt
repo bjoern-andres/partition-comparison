@@ -4,6 +4,20 @@ include_directories(include include/andres)
 file(GLOB headers include/andres/*.hxx)
 enable_testing()
 
+##############################################################################
+# C++11 support
+##############################################################################
+include(CheckCXXCompilerFlag)
+CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
+CHECK_CXX_COMPILER_FLAG("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
+if(COMPILER_SUPPORTS_CXX11)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+elseif(COMPILER_SUPPORTS_CXX0X)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+else()
+    message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Some functionality will not be available.")
+endif()
+
 find_package(Matlab QUIET)
 if(MATLAB_FOUND)
     INCLUDE_DIRECTORIES(${MATLAB_INCLUDE_DIR})
@@ -14,6 +28,7 @@ endif()
 
 add_executable(test-partition-comparison src/unittest/partition-comparison.cxx ${headers})
 add_test(test-partition-comparison test-partition-comparison)
+
 if(MATLAB_FOUND)
    add_library(andres_rand_index SHARED src/mex/andres_rand_index.cxx src/mex/andres_rand_index.def ${headers})
    target_link_libraries(andres_rand_index ${MATLAB_LIBRARIES})
