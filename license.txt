@@ -1,4 +1,4 @@
-Copyright (C) 2012 Bjoern Andres -- http://www.andres.sc -- bjoern@andres.sc
+Copyright (c) 2016 by Bjoern Andres (bjoern@andres.sc)
 
 Please cite: https://github.com/bjoern-andres/partition-comparison
 
